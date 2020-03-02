@@ -28,6 +28,8 @@ public class MatchActivity extends AppCompatActivity {
     String awayTeam;
     int scoreHome;
     int scoreAway;
+    private String HomeScorer;
+    private String AwayScore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +90,13 @@ public class MatchActivity extends AppCompatActivity {
                 scoreHome++;
                 homeScore.setText(String.valueOf(scoreHome));
                 // Get String data from Intent
-                String returnString = data.getStringExtra("keyName");
+                String tmp= "\n"+data.getStringExtra("keyName") + " " + data.getStringExtra("keyminute") + "\"";
+
+                HomeScorer=HomeScorer + tmp;
 
                 // Set text view with string
                 TextView textView = (TextView) findViewById(R.id.txt_nameScore1);
-                textView.setText(returnString);
+                textView.setText(HomeScorer);
             }
         }
         else if(requestCode == 2) {
@@ -100,12 +104,24 @@ public class MatchActivity extends AppCompatActivity {
                 scoreAway++;
                 awayScore.setText(String.valueOf(scoreAway));
                 // Get String data from Intent
-                String returnString = data.getStringExtra("keyName");
+                String tmp= "\n"+data.getStringExtra("keyName") + " " + data.getStringExtra("keyminute") + "\"";
+
+                AwayScore=AwayScore+tmp;
 
                 // Set text view with string
                 TextView textView = (TextView) findViewById(R.id.txt_nameScore2);
-                textView.setText(returnString);
+                textView.setText(AwayScore);
             }
         }
+    }
+
+    public void handleHasil(View view) {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("homeScore", scoreHome);
+        intent.putExtra("awayScore", scoreAway);
+        intent.putExtra("homeName", homeTeam);
+        intent.putExtra("awayName", awayTeam);
+
+        startActivity(intent);
     }
 }

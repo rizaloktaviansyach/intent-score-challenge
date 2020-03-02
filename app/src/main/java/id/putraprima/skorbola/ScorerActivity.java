@@ -19,11 +19,14 @@ public class ScorerActivity extends AppCompatActivity {
     public void handleSubmit(View view) {
         // Get the text from the EditText
         EditText editText = (EditText) findViewById(R.id.editText);
+        EditText editText1 = (EditText) findViewById(R.id.editText2);
         String stringToPassBack = editText.getText().toString();
+        String stringToPassBack1 = editText1.getText().toString();
 
         // Put the String to pass back into an Intent and close this activity
         Intent intent = new Intent();
         intent.putExtra("keyName", stringToPassBack);
+        intent.putExtra("keyminute", stringToPassBack1);
         setResult(RESULT_OK, intent);
         finish();
     }
